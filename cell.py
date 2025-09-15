@@ -13,7 +13,6 @@ class Cell:
     It knows which walls it has, where it exists on the canvas in x/y coordinates, 
     and has access to the window so that it can draw itself.
     """
-
     def __init__(self, win):
         self.has_left_wall = True
         self.has_right_wall = True
@@ -56,3 +55,13 @@ class Cell:
             self.__win.draw_line(left_line, "black")
         if self.has_right_wall:
             self.__win.draw_line(right_line, "black")
+
+    def draw_move(self, to_cell, undo=False):
+        color = "red"
+        if undo:
+            color = "gray"
+        line = Line(self._center(), to_cell._center())   
+        self.__win.draw_line(line, color)
+
+    def _center(self): 
+        return Point((self.__x1+self.__x2)/2, (self.__y1+self.__y2)/2)
